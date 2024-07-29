@@ -101,10 +101,15 @@ function App() {
     }
 
     try {
-      const result = await axios.post('/scrape', {
+     const result = await axios.post('http://localhost:5000/scrape', {
   repoUrl,
   docUrl,
   selectedFileTypes: fileTypesToSend,
+}, {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true
 });
       setResponse(result.data.response);
     } catch (error) {

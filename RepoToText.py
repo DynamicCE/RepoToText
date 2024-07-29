@@ -16,8 +16,15 @@ from retry import retry
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://frontend:3000"], "methods": ["GET", "POST", "OPTIONS"]}})
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 
 class GithubRepoScraper:
     """Scrape GitHub repositories."""
@@ -140,4 +147,7 @@ def scrape():
     return jsonify({"response": file_content})
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000 ,debug=True)
+
+
+   
