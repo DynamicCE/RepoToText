@@ -13,8 +13,11 @@ from flask_cors import CORS
 from requests.exceptions import RequestException
 from retry import retry
 
+
+
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://frontend:3000"], "methods": ["GET", "POST", "OPTIONS"]}})
+
 
 class GithubRepoScraper:
     """Scrape GitHub repositories."""
@@ -112,9 +115,11 @@ class GithubRepoScraper:
         print("Done.")
         return filename
 
-@app.route('/scrape', methods=['POST'])
+@app.route('/scrape', methods=['POST', 'OPTIONS'])
 def scrape():
     """Scrape GitHub repositories."""
+    if request.method == 'OPTIONS':
+        return '', 204
     data = request.get_json()
 
     repo_url = data.get('repoUrl')

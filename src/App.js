@@ -101,11 +101,11 @@ function App() {
     }
 
     try {
-      const result = await axios.post('http://localhost:5000/scrape', {
-        repoUrl,
-        docUrl,
-        selectedFileTypes: fileTypesToSend,
-      });
+      const result = await axios.post('/scrape', {
+  repoUrl,
+  docUrl,
+  selectedFileTypes: fileTypesToSend,
+});
       setResponse(result.data.response);
     } catch (error) {
       console.error('There was an error!', error);
