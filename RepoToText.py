@@ -17,7 +17,7 @@ from requests.exceptions import RequestException
 from retry import retry
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 class GithubRepoScraper:
     """Scrape GitHub repositories."""
@@ -137,8 +137,5 @@ def scrape():
 
     return jsonify({"response": file_content})
 
-if __name__ == "__main__": # -- UNCOMMENT TO RUN WITH DOCKER
-    app.run(host='0.0.0.0')
-
-# if __name__ == "__main__": -- UNCOMMENT TO RUN LOCALLY WITHOUT DOCKER
-#     app.run(port=5000)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)

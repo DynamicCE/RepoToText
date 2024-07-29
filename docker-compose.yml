@@ -1,4 +1,5 @@
-version: '3'
+version: '3.9'
+
 services:
   backend:
     build:
@@ -7,12 +8,13 @@ services:
     volumes:
       - ./data:/app/data
     ports:
-      - 5000:5000
+      - "5001:5000"
     env_file:
       - .env
+
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.frontend
     ports:
-      - 3000:3000
+      - "3000:3000"
