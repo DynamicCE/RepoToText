@@ -2,9 +2,6 @@
 This module handles the back end flask server for RepoToText
 """
 
-# pylint: disable=line-too-long
-# pylint: disable=C0103
-
 import os
 from datetime import datetime
 import re

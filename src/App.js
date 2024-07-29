@@ -108,7 +108,7 @@ function App() {
       });
       setResponse(result.data.response);
     } catch (error) {
-      console.error(error);
+      console.error('There was an error!', error);
     }
   };
 
